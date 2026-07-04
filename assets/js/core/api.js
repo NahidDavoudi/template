@@ -13,6 +13,12 @@ import {
   demoCategoryBySlug,
   demoOrderCreate,
 } from './demoApi.js';
+import {
+  matchTemplateAdminCredentials,
+  createTemplateAdminSession,
+  isTemplateAdminSession,
+  isTemplateAuthEnabled,
+} from './templateAuth.js';
 
 const CFG = () => window.AppConfig || {};
 const API = () => CFG().api || {};
@@ -281,8 +287,19 @@ async function afterAuthSession(data) {
 
 const authApi = {
   register: async (data) => afterAuthSession(await post('/auth/register', data)),
-  login: async (phone, password) => afterAuthSession(await post('/auth/login', { phone, password })),
+  login: async (phone, password) => {
+    if (matchTemplateAdminCredentials(phone, password)) {
+      return afterAuthSession(createTemplateAdminSession());
+    }
+    if (isTemplateAuthEnabled()) {
+      throw new ApiError('نام کاربری یا رمز عبور اشتباه است.', 401);
+    }
+    return afterAuthSession(await post('/auth/login', { phone, password }));
+  },
   adminLogin: async (phone, password) => {
+    if (matchTemplateAdminCredentials(phone, password)) {
+      return afterAuthSession(createTemplateAdminSession());
+    }
     const data = await post('/auth/admin-login', { phone, password });
     auth.persistSession(data);
     auth.role.set('admin');
@@ -302,6 +319,7 @@ const authApi = {
     auth.clearSession();
   },
   validateSession: async () => {
+    if (isTemplateAdminSession()) return true;
     try {
       const user = await get('/auth/me');
       auth.persistSession({ user });

@@ -5,6 +5,7 @@ import { initConfig, storeConfig } from './config/bootstrap.js';
 import { initTheme, pageTitle } from './core/theme.js';
 import loadStoreSettings from './core/storeSettings.js';
 import api from './core/api.js';
+import { isTemplateAuthEnabled } from './core/templateAuth.js';
 
 initConfig();
 
@@ -49,6 +50,16 @@ function applyLoginBranding() {
 }
 
 function applyAuthMode() {
+  if (isTemplateAuthEnabled()) {
+    const phoneLabel = document.querySelector('label[for="login-phone"]');
+    const phoneInput = document.getElementById('login-phone');
+    if (phoneLabel) phoneLabel.textContent = 'نام کاربری';
+    if (phoneInput) {
+      phoneInput.placeholder = storeConfig.auth.templateAdmin.username;
+      phoneInput.autocomplete = 'username';
+    }
+  }
+
   if (isSmsOtpEnabled()) return;
 
   document.getElementById('switch-login-sms')?.classList.add('hidden');
@@ -67,7 +78,8 @@ async function boot() {
 
   const sessionOk = await api.auth.validateSession();
   if (sessionOk) {
-    const redirect = new URLSearchParams(location.search).get('redirect') || 'index.html#/';
+    const redirect = new URLSearchParams(location.search).get('redirect')
+      || (api.auth.isAdmin() ? 'admin.html' : 'index.html#/');
     location.replace(redirect);
     return;
   }

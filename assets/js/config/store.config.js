@@ -293,6 +293,13 @@ export default {
 
     smsOtpEnabled: false,
 
+    /** ورود ادمین تمپلیت — فقط وقتی demoMode: true در app.config.js باشد */
+    templateAdmin: {
+      username: 'admin',
+      password: 'admin1234',
+      displayName: 'مدیر فروشگاه',
+    },
+
   },
 
 
