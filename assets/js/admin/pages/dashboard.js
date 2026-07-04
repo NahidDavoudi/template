@@ -18,7 +18,7 @@
       muted: _cssVar('--color-muted', '#86868b'),
       border: _cssVar('--color-border', '#d2d2d7'),
       bodyText: _cssVar('--color-body-text', '#1d1d1f'),
-      surface: _cssVar('--color-dark-2', '#f5f5f7'),
+      surface: _cssVar('--color-dark-2', '#F7F7F7'),
       body: _cssVar('--color-dark', '#fff'),
     };
   }

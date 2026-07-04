@@ -40,13 +40,13 @@ export default {
 
     background: '#ffffff',
 
-    surface: '#f5e8e8',
+    surface: '#F7F7F7',
 
     card: '#ffffff',
 
-    border: '#d4a8a8',
+    border: '#E5E5E5',
 
-    muted: '#8a6060',
+    muted: '#737373',
 
     textDim: 'rgba(45, 45, 45, 0.5)',
 
