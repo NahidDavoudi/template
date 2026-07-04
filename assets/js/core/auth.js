@@ -5,8 +5,10 @@
 function keys() {
   const s = window.AppConfig?.storage || {};
   return {
-    role: s.role || 'gb_role',
-    user: s.user || 'gb_user',
+    role: s.role || 'nad_role',
+    user: s.user || 'nad_user',
+    token: s.token || 'nad_token',
+    refreshToken: s.refreshToken || 'nad_refresh',
   };
 }
 
@@ -65,8 +67,8 @@ export function persistSession(data) {
 export function clearSession() {
   role.remove();
   setCurrentUser(null);
-  localStorage.removeItem('gb_token');
-  localStorage.removeItem('gb_refresh');
+  localStorage.removeItem(keys().token);
+  localStorage.removeItem(keys().refreshToken);
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
 }

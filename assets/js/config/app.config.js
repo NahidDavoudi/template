@@ -1,11 +1,16 @@
 /**
- * app.config.js — تنظیمات زیرساختی (ثابت بین فروشگاه‌ها)
+ * app.config.js — تنظیمات زیرساختی NadStore Template
  */
+import demoData from './demo.data.js';
+
 export default {
   app: {
-    name: 'RAR shop',
+    name: 'NadStore',
     locale: 'fa-IR',
   },
+
+  /** حالت نمایشی — بدون نیاز به بک‌اند؛ فقط برای دمو و پیش‌نمایش */
+  demoMode: true,
 
   api: {
     baseUrl: 'api/v1',
@@ -16,11 +21,11 @@ export default {
   },
 
   storage: {
-    token: 'gb_token',
-    refreshToken: 'gb_refresh',
-    role: 'gb_role',
-    user: 'gb_user',
-    guestCart: 'gb_guest_cart',
+    token: 'nad_token',
+    refreshToken: 'nad_refresh',
+    role: 'nad_role',
+    user: 'nad_user',
+    guestCart: 'nad_guest_cart',
   },
 
   messages: {
@@ -34,11 +39,12 @@ export default {
     validation: 'لطفاً اطلاعات وارد شده را بررسی کنید.',
     rateLimit: 'تعداد درخواست‌ها بیش از حد مجاز است. کمی صبر کنید.',
     server: 'خطای داخلی سرور. بعداً تلاش کنید.',
+    demoOrder: 'سفارش نمایشی ثبت شد — این قالب فقط برای نمایش است.',
   },
 
   fallback: {
-    products: [],
-    categories: [],
+    products: { data: demoData.products },
+    categories: demoData.categories,
     settings: null,
     cart: { items: [], total: 0 },
   },

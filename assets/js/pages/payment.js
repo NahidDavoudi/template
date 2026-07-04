@@ -27,7 +27,7 @@ window.handleFile = function (input) {
 };
 
 window.submitReceipt = async function () {
-  const stored = JSON.parse(sessionStorage.getItem('gb_checkout') || '{}');
+  const stored = JSON.parse(sessionStorage.getItem('nad_checkout') || '{}');
   const orderId = stored.id || stored.order_id;
   const errEl = document.getElementById('upload-error');
   const btn = document.getElementById('submit-receipt-btn');
@@ -45,8 +45,14 @@ window.submitReceipt = async function () {
   if (errEl) errEl.classList.add('hidden');
 
   try {
+    if (window.AppConfig?.demoMode) {
+      sessionStorage.removeItem('nad_checkout');
+      api.utils.toast('رسید نمایشی ثبت شد — این قالب فقط برای نمایش است.', 'success', 4000);
+      setTimeout(() => Router.go('/'), 2500);
+      return;
+    }
     await api.orders.uploadReceipt(orderId, _selectedReceiptFile);
-    sessionStorage.removeItem('gb_checkout');
+    sessionStorage.removeItem('nad_checkout');
     api.utils.toast('رسید با موفقیت ثبت شد. سفارش شما در دست بررسی است.', 'success', 4000);
     setTimeout(() => Router.go('/'), 2500);
   } catch (e) {
@@ -87,10 +93,12 @@ Router.onEnter('payment', function () {
   }
 
   try {
-    const orderData = JSON.parse(sessionStorage.getItem('gb_checkout') || '{}');
+    const orderData = JSON.parse(sessionStorage.getItem('nad_checkout') || '{}');
     text('payment-order-number', orderData.order_number || '-');
     text('payment-total-amount',
-      orderData.total_amount ? api.utils.formatPrice(orderData.total_amount) : '—');
+      orderData.total_amount || orderData.total
+        ? api.utils.formatPrice(orderData.total_amount || orderData.total)
+        : '—');
   } catch (e) {
     console.error('خطا در خواندن اطلاعات سفارش:', e);
   }

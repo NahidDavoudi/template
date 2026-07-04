@@ -5,6 +5,14 @@ import * as auth from './auth.js';
 import { createCartStore } from './cartStore.js';
 import { formatPrice, attachPriceFormatter } from '../utils/priceFormatter.js';
 import { toast } from '../utils/helpers.js';
+import {
+  isDemoMode,
+  demoProductList,
+  demoProductGet,
+  demoCategoriesList,
+  demoCategoryBySlug,
+  demoOrderCreate,
+} from './demoApi.js';
 
 const CFG = () => window.AppConfig || {};
 const API = () => CFG().api || {};
@@ -255,7 +263,9 @@ function getCartStore() {
       patch,
       del,
       withFallback,
-      fetchProduct: (id) => get(`/products/${id}`),
+      fetchProduct: (id) => (isDemoMode()
+        ? Promise.resolve(demoProductGet(id))
+        : get(`/products/${id}`)),
     });
   }
   return cartStore;
@@ -343,9 +353,28 @@ const users = {
 };
 
 const products = {
-  list: (filters = {}, opts = {}) => withFallback(get('/products', filters, opts), CFG().fallback?.products ?? []),
-  featured: (limit = 8) => withFallback(get('/products/featured', { limit }), CFG().fallback?.products ?? []),
-  get: (id) => get(`/products/${id}`),
+  list: (filters = {}, opts = {}) => {
+    if (isDemoMode()) return Promise.resolve(demoProductList(filters));
+    const fb = CFG().fallback?.products ?? { data: [] };
+    return withFallback(get('/products', filters, opts), fb);
+  },
+  featured: (limit = 8) => {
+    if (isDemoMode()) return Promise.resolve(demoProductList({ featured: 1, limit }));
+    const fb = demoProductList({ featured: 1, limit });
+    return withFallback(get('/products/featured', { limit }), fb.data ?? fb);
+  },
+  get: (id) => {
+    if (isDemoMode()) {
+      const p = demoProductGet(id);
+      if (!p) {
+        const err = new ApiError(MSG().notFound, 404);
+        emitError(err);
+        return Promise.reject(err);
+      }
+      return Promise.resolve(p);
+    }
+    return get(`/products/${id}`);
+  },
   create: (data) => post('/admin/products', data),
   update: (id, data) => put(`/admin/products/${id}`, data),
   delete: (id) => del(`/admin/products/${id}`),
@@ -374,9 +403,24 @@ const products = {
 };
 
 const categories = {
-  list: () => withFallback(get('/categories'), CFG().fallback?.categories ?? []),
-  get: (id) => get(`/categories/${id}`),
-  bySlug: (slug) => get(`/categories/slug/${slug}`),
+  list: () => {
+    if (isDemoMode()) return Promise.resolve(demoCategoriesList());
+    return withFallback(get('/categories'), CFG().fallback?.categories ?? []);
+  },
+  get: (id) => {
+    if (isDemoMode()) {
+      const cat = demoCategoriesList().find((c) => String(c.id) === String(id));
+      return cat ? Promise.resolve(cat) : Promise.reject(new ApiError(MSG().notFound, 404));
+    }
+    return get(`/categories/${id}`);
+  },
+  bySlug: (slug) => {
+    if (isDemoMode()) {
+      const cat = demoCategoryBySlug(slug);
+      return cat ? Promise.resolve(cat) : Promise.reject(new ApiError(MSG().notFound, 404));
+    }
+    return get(`/categories/slug/${slug}`);
+  },
   create: (data) => post('/admin/categories', data),
   update: (id, data) => put(`/admin/categories/${id}`, data),
   delete: (id) => del(`/admin/categories/${id}`),
@@ -409,17 +453,19 @@ const cart = {
 };
 
 const orders = {
-  place: (data) => post('/orders', data),
-  create: (data) => post('/orders', data),
+  place: (data) => (isDemoMode() ? Promise.resolve(demoOrderCreate(data)) : post('/orders', data)),
+  create: (data) => (isDemoMode() ? Promise.resolve(demoOrderCreate(data)) : post('/orders', data)),
   list: () => get('/orders'),
   get: (id) => get(`/orders/${id}`),
   byNumber: (number) => get(`/orders/number/${number}`),
   cancel: (id) => patch(`/orders/${id}/cancel`),
-  uploadReceipt: (id, file) => {
-    const form = new FormData();
-    form.append('receipt', file);
-    return upload(`/orders/${id}/receipt`, form);
-  },
+  uploadReceipt: (id, file) => (isDemoMode()
+    ? Promise.resolve({ success: true, demo: true })
+    : (() => {
+      const form = new FormData();
+      form.append('receipt', file);
+      return upload(`/orders/${id}/receipt`, form);
+    })()),
   adminList: (params = {}) => get('/admin/orders', params),
   adminGet: (id) => get(`/admin/orders/${id}`),
   updateStatus: (id, status, cancelReason) => patch(`/admin/orders/${id}/status`, {

@@ -1,4 +1,4 @@
-# معماری فرانت‌اند — Online Store Template
+# معماری فرانت‌اند — NadStore Template
 **Stack:** HTML · Tailwind CSS · Vanilla JS · Alpine.js · Navigo.js · Swiper.js · GSAP · Lucide Icons
 
 ---

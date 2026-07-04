@@ -3,7 +3,7 @@
  */
 
 function storageKey() {
-  return window.AppConfig?.storage?.guestCart || 'gb_guest_cart';
+  return window.AppConfig?.storage?.guestCart || 'nad_guest_cart';
 }
 
 function readRaw() {

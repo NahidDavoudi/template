@@ -82,6 +82,17 @@ function mountShell() {
     });
   }
 
+  if (window.AppConfig?.demoMode) {
+    const existing = document.getElementById('demo-banner');
+    if (!existing && headerEl) {
+      const banner = document.createElement('div');
+      banner.id = 'demo-banner';
+      banner.className = 'bg-accent/10 border-b border-accent/20 text-center py-2 px-4 text-xs text-body z-40 relative';
+      banner.innerHTML = 'این یک <strong>قالب نمایشی NadStore</strong> است — خرید واقعی انجام نمی‌شود.';
+      headerEl.insertAdjacentElement('afterend', banner);
+    }
+  }
+
   const footerEl = document.getElementById('app-footer');
   if (footerEl) {
     footerEl.innerHTML = Footer.render();

@@ -327,7 +327,7 @@ async function _submitOrder() {
     await api.cart.clear();
     window.loadCartCount?.();
 
-    sessionStorage.setItem('gb_checkout', JSON.stringify({
+    sessionStorage.setItem('nad_checkout', JSON.stringify({
       ...result,
       customer_name: name,
       customer_phone: phone,

@@ -1,4 +1,8 @@
 {
+  "name": "nadstore",
+  "version": "1.0.0",
+  "description": "NadStore — قالب فروشگاه آنلاین فارسی برای نمایش و پیش‌نمایش",
+  "private": true,
   "scripts": {
     "build:css": "npx @tailwindcss/cli -i ./assets/css/input.css -o ./assets/css/output.css --minify",
     "watch:css": "npx @tailwindcss/cli -i ./assets/css/input.css -o ./assets/css/output.css --watch"
