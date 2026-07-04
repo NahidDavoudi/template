@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --soft-blush:        #ffe5ec;
-  --pastel-pink:       #ffc2d1;
-  --cherry-blossom:    #ffb3c6;
-  --cotton-candy:      #ff8fab;
-  --petal-rouge:       #fb6f92;
+  --soft-blush:        #f5e8e8;
+  --pastel-pink:       #d4a8a8;
+  --cherry-blossom:    #b87070;
+  --cotton-candy:      #8a3030;
+  --petal-rouge:       #6B0000;
   --color-dark:        #ffffff;
-  --color-dark-2:      #ffe5ec;
+  --color-dark-2:      #f5e8e8;
   --color-dark-3:      #ffffff;
-  --color-border:      #ffc2d1;
-  --color-accent:      #fb6f92;
-  --color-accent-hover:#e85a7d;
-  --color-muted:       #a07888;
+  --color-border:      #d4a8a8;
+  --color-accent:      #6B0000;
+  --color-accent-hover:#550000;
+  --color-muted:       #8a6060;
   --color-text-dim:    rgba(45, 45, 45, 0.5);
   --color-body-text:   #2d2d2d;
   --font-vazir:   'Vazirmatn', sans-serif;
@@ -57,7 +57,7 @@
 div[data-page] { display: none; }
 div[data-page].active { display: block; }
 
-/* ── Accent Button (primary CTA — petal-rouge on light theme) ── */
+/* ── Accent Button (primary CTA — deep burgundy on light theme) ── */
 .btn-accent {
   position: relative;
   display: inline-flex;
@@ -69,7 +69,7 @@ div[data-page].active { display: block; }
   border: 1px solid color-mix(in oklab, var(--color-accent) 80%, #000);
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.06),
-    0 4px 12px rgba(251, 111, 146, 0.3);
+    0 4px 12px rgba(107, 0, 0, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   cursor: pointer;
   text-decoration: none;
@@ -79,7 +79,7 @@ div[data-page].active { display: block; }
   background: var(--color-accent-hover);
   box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.08),
-    0 8px 20px rgba(251, 111, 146, 0.35);
+    0 8px 20px rgba(107, 0, 0, 0.35);
 }
 .btn-accent:active {
   transform: scale(0.97);
@@ -161,7 +161,7 @@ div[data-page].active { display: block; }
   border: 1px solid rgba(255, 194, 209, 0.75);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 4px 16px rgba(251, 111, 146, 0.1),
+    0 4px 16px rgba(107, 0, 0, 0.1),
     0 1px 3px rgba(0, 0, 0, 0.06);
   transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
   cursor: pointer;
@@ -171,7 +171,7 @@ div[data-page].active { display: block; }
   background: rgba(255, 255, 255, 0.92);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 6px 24px rgba(251, 111, 146, 0.15);
+    0 6px 24px rgba(107, 0, 0, 0.15);
 }
 .btn-glass:active {
   transform: scale(0.95);
@@ -209,7 +209,7 @@ div[data-page].active { display: block; }
 }
 .iris-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(251, 111, 146, 0.12);
+  box-shadow: 0 16px 48px rgba(107, 0, 0, 0.12);
   border-color: color-mix(in oklab, var(--color-accent) 35%, var(--color-border));
 }
 
@@ -318,7 +318,7 @@ div[data-page].active { display: block; }
   will-change: filter;
 }
 .featured-poster-curve {
-  box-shadow: 0 12px 40px rgba(251, 111, 146, 0.15);
+  box-shadow: 0 12px 40px rgba(107, 0, 0, 0.15);
   border: 1px solid var(--color-border);
 }
 .curve-carousel__arrows {
@@ -485,7 +485,7 @@ div[data-page].active { display: block; }
   transform: scale(1.15);
 }
 .promo-poster-slide {
-  box-shadow: 0 12px 40px rgba(251, 111, 146, 0.12);
+  box-shadow: 0 12px 40px rgba(107, 0, 0, 0.12);
 }
 
 /* ── Mobile Bottom Navigation (floating glass island) ── */
@@ -509,7 +509,7 @@ div[data-page].active { display: block; }
   border: 1px solid rgba(255, 194, 209, 0.65);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 8px 32px rgba(251, 111, 146, 0.12),
+    0 8px 32px rgba(107, 0, 0, 0.12),
     0 2px 8px rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
@@ -522,7 +522,7 @@ div[data-page].active { display: block; }
 }
 .mobile-bottom-nav__item.is-active {
   color: var(--color-accent);
-  background: rgba(251, 111, 146, 0.1);
+  background: rgba(107, 0, 0, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .mobile-bottom-nav__item.is-active i {

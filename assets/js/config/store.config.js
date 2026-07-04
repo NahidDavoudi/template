@@ -34,19 +34,19 @@ export default {
 
   theme: {
 
-    primary: '#fb6f92',
+    primary: '#6B0000',
 
-    primaryHover: '#e85a7d',
+    primaryHover: '#550000',
 
     background: '#ffffff',
 
-    surface: '#ffe5ec',
+    surface: '#f5e8e8',
 
     card: '#ffffff',
 
-    border: '#ffc2d1',
+    border: '#d4a8a8',
 
-    muted: '#a07888',
+    muted: '#8a6060',
 
     textDim: 'rgba(45, 45, 45, 0.5)',
 
@@ -120,7 +120,7 @@ export default {
 
     cardBase: 'bg-card border border-border',
 
-    cardHover: 'hover:shadow-[0_12px_40px_rgba(251,111,146,0.12)] hover:border-accent/30 transition-all duration-500',
+    cardHover: 'hover:shadow-[0_12px_40px_rgba(107,0,0,0.12)] hover:border-accent/30 transition-all duration-500',
 
     productCardAspect: 'aspect-[4/5]',
 
@@ -128,7 +128,7 @@ export default {
 
       success: { bg: '#16a34a', text: '#ffffff', border: '#15803d' },
 
-      error: { bg: '#fb6f92', text: '#ffffff', border: '#e85a7d' },
+      error: { bg: '#6B0000', text: '#ffffff', border: '#550000' },
 
       warning: { bg: '#eab308', text: '#422006', border: '#ca8a04' },
 
