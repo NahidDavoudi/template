@@ -658,3 +658,15 @@ div[data-page].active { display: block; }
   background: #FFFFFF;
   transform: none;
 }
+
+/* ── Home Category Circles ── */
+.home-category-circles__row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.home-category-circles__row::-webkit-scrollbar {
+  display: none;
+}
+.home-category-circle__avatar {
+  border-radius: 9999px !important;
+}

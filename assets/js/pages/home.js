@@ -4,9 +4,8 @@
 import api from '../core/api.js';
 import Router from '../core/router.js';
 import ProductCard from '../components/ProductCard.js';
-import HeroSection from '../components/HeroSection.js';
+import CategoryCircles from '../components/CategoryCircles.js';
 import FeaturedCarousel from '../components/FeaturedCarousel.js';
-import PromoPosterSlider from '../components/PromoPosterSlider.js';
 import { storeConfig } from '../config/bootstrap.js';
 
 const SWIPER_DEFAULTS = {
@@ -48,44 +47,22 @@ function setHomeTexts() {
   if (nlSub) nlSub.textContent = newsletter.subtitle;
 }
 
-function normalizeBanners(raw) {
-  if (!raw) return storeConfig.promoSlider?.fallbackBanners || [];
-  const arr = Array.isArray(raw) ? raw : (raw.data || []);
-  return arr.length ? arr : (storeConfig.promoSlider?.fallbackBanners || []);
-}
-
-async function loadPromoPosters() {
-  const promoEl = document.getElementById('promo-posters-section');
-  if (!promoEl) return;
-
-  PromoPosterSlider.destroy(promoEl);
+async function loadHomeCategories() {
+  const el = document.getElementById('hero-section');
+  if (!el) return;
 
   try {
-    const raw = await api.promoBanners.list();
-    const banners = normalizeBanners(raw);
-
-    if (!banners.length) {
-      promoEl.innerHTML = '';
-      return;
-    }
-
-    promoEl.innerHTML = PromoPosterSlider.render({ banners });
-    PromoPosterSlider.bind(promoEl);
+    const cats = await api.categories.list();
+    const arr = Array.isArray(cats) ? cats : (cats.data || []);
+    el.innerHTML = CategoryCircles.render(arr);
   } catch (e) {
-    console.warn('Promo banners error:', e);
-    const fallback = storeConfig.promoSlider?.fallbackBanners || [];
-    if (fallback.length) {
-      promoEl.innerHTML = PromoPosterSlider.render({ banners: fallback });
-      PromoPosterSlider.bind(promoEl);
-    } else {
-      promoEl.innerHTML = '';
-    }
+    console.warn('Categories error:', e);
+    el.innerHTML = CategoryCircles.render([]);
   }
 }
 
 Router.onEnter('home', async function () {
-  const heroEl = document.getElementById('hero-section');
-  if (heroEl) heroEl.innerHTML = HeroSection.render();
+  await loadHomeCategories();
 
   setHomeTexts();
 
@@ -107,8 +84,6 @@ Router.onEnter('home', async function () {
       featuredEl.innerHTML = '';
     }
   }
-
-  await loadPromoPosters();
 
   try {
     const data = await api.products.list({ limit: 10 });
