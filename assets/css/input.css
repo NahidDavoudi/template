@@ -667,6 +667,10 @@ div[data-page].active { display: block; }
 .home-category-circles__row::-webkit-scrollbar {
   display: none;
 }
+/* force circle even inside the global sharp-corners override */
 .home-category-circle__avatar {
   border-radius: 9999px !important;
+}
+.home-category-circle__avatar img {
+  border-radius: 0;
 }

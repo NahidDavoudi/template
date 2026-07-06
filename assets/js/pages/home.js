@@ -48,13 +48,13 @@ function setHomeTexts() {
 }
 
 async function loadHomeCategories() {
-  const el = document.getElementById('hero-section');
+  const el = document.getElementById('categories-section');
   if (!el) return;
 
   try {
     const cats = await api.categories.list();
     const arr = Array.isArray(cats) ? cats : (cats.data || []);
-    el.innerHTML = CategoryCircles.render(arr);
+    el.innerHTML = CategoryCircles.render(arr, storeConfig.texts?.home?.categoriesTitle || 'دسته‌بندی‌ها');
   } catch (e) {
     console.warn('Categories error:', e);
     el.innerHTML = CategoryCircles.render([]);
@@ -62,8 +62,6 @@ async function loadHomeCategories() {
 }
 
 Router.onEnter('home', async function () {
-  await loadHomeCategories();
-
   setHomeTexts();
 
   const featuredEl = document.getElementById('featured-section');
@@ -77,13 +75,15 @@ Router.onEnter('home', async function () {
         featuredEl.innerHTML = FeaturedCarousel.render({ products: arr });
         FeaturedCarousel.bind(featuredEl, { products: arr });
       } else {
-        featuredEl.innerHTML = '';
-      }
-    } catch (e) {
-      console.warn('Featured products error:', e);
       featuredEl.innerHTML = '';
     }
+  } catch (e) {
+    console.warn('Featured products error:', e);
+    featuredEl.innerHTML = '';
   }
+  }
+
+  await loadHomeCategories();
 
   try {
     const data = await api.products.list({ limit: 10 });
