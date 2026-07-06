@@ -180,22 +180,28 @@ div[data-page].active { display: block; }
   z-index: 1;
 }
 
-/* ── Product Card (industrial modular grid) ── */
+/* ── Product Card (industrial modular grid — float-to-focus) ── */
 .iris-card {
   background: var(--color-dark-3);
   border: 1px solid var(--color-border);
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
-  transition: border-color 0.3s ease;
+  filter: brightness(0.88) saturate(0.85);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, filter;
 }
 .iris-card:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: #FFFFFF;
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.8), 0 4px 16px rgba(0, 0, 0, 0.5);
+  filter: brightness(1.0) saturate(1.0);
 }
 .iris-card:hover .product-card__img--primary {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 .product-card__media {
   position: relative;
@@ -630,9 +636,10 @@ div[data-page].active { display: block; }
   box-shadow: none !important;
 }
 #app-header {
-  background-color: color-mix(in oklab, var(--color-dark) 96%, transparent);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  background-color: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(20px) saturate(0.7) brightness(0.85);
+  -webkit-backdrop-filter: blur(20px) saturate(0.7) brightness(0.85);
+  border-bottom: 1px solid rgba(51, 51, 51, 0.8);
 }
 .header-nav-link:hover,
 #app-header a.rounded-full:hover,
@@ -670,7 +677,434 @@ div[data-page].active { display: block; }
 /* force circle even inside the global sharp-corners override */
 .home-category-circle__avatar {
   border-radius: 9999px !important;
+  border: 1px solid var(--color-border) !important;
+  transition: border-color 0.4s ease, filter 0.4s ease;
+}
+.home-category-circle__avatar:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  filter: brightness(1.06);
 }
 .home-category-circle__avatar img {
   border-radius: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK ATMOSPHERIC COLLAGE — "Subdued Hazy Vintage"
+   Secret dust-covered art vault aesthetic for gothic/punk accessories
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Atmospheric CSS Variables ── */
+:root {
+  --color-dust:        rgba(210, 198, 178, 0.022);
+  --color-haze:        rgba(0, 0, 0, 0.48);
+  --color-vignette:    rgba(0, 0, 0, 0.75);
+  --blur-ghost:        blur(12px);
+  --blur-haze:         blur(3px);
+  --float-lift:        -6px;
+  --transition-atm:    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Film Grain / Noise — applied via body::before (no HTML changes) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  animation: atm-grain-drift 14s steps(3) infinite;
+}
+
+@keyframes atm-grain-drift {
+  0%   { transform: translate(0, 0)      rotate(0deg); }
+  20%  { transform: translate(-4%, 7%)   rotate(0.5deg); }
+  40%  { transform: translate(6%, -4%)   rotate(-0.5deg); }
+  60%  { transform: translate(-5%, -6%)  rotate(0.3deg); }
+  80%  { transform: translate(4%, 5%)    rotate(-0.3deg); }
+  100% { transform: translate(0, 0)      rotate(0deg); }
+}
+
+/* ── Page Sections — atmospheric isolation ── */
+.atmospheric-section {
+  position: relative;
+  isolation: isolate;
+}
+.atmospheric-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 100% 25% at 50% 0%,   rgba(0,0,0,0.55) 0%, transparent 100%),
+    radial-gradient(ellipse 100% 25% at 50% 100%, rgba(0,0,0,0.55) 0%, transparent 100%),
+    radial-gradient(ellipse 12% 100% at 0% 50%,   rgba(0,0,0,0.3)  0%, transparent 100%),
+    radial-gradient(ellipse 12% 100% at 100% 50%, rgba(0,0,0,0.3)  0%, transparent 100%);
+}
+
+/* ── Section Spotlight — gentle focus beam from above ── */
+.section-spotlight {
+  position: relative;
+}
+.section-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 60% 55% at 50% 35%,
+    rgba(255, 255, 255, 0.018) 0%,
+    transparent 70%
+  );
+}
+
+/* ── Lace / Damask Cross-Hatch Texture Overlay ── */
+.texture-haze {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.007) 0px,
+      rgba(255,255,255,0.007) 1px,
+      transparent 1px,
+      transparent 10px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.007) 0px,
+      rgba(255,255,255,0.007) 1px,
+      transparent 1px,
+      transparent 10px);
+}
+
+/* ── Dust Mote Scatter ── */
+.dust-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 130% 70% at 20% 15%, rgba(210,198,178,0.03) 0%, transparent 65%),
+    radial-gradient(ellipse 80%  55% at 80% 85%, rgba(210,198,178,0.02) 0%, transparent 55%),
+    radial-gradient(ellipse 50%  30% at 55% 50%, rgba(255,255,255,0.008) 0%, transparent 100%);
+}
+
+/* ── Ghost Background Cards (aged parchment / blurred relics) ── */
+.ghost-card {
+  filter: blur(10px) brightness(0.28) sepia(0.4) saturate(0.6);
+  opacity: 0.38;
+  pointer-events: none;
+  transform: scale(0.96);
+  transition: none;
+}
+.ghost-panel {
+  position: relative;
+  overflow: hidden;
+  filter: blur(6px) brightness(0.38) sepia(0.3);
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+/* ── Collage Layered Panel ── */
+.collage-panel {
+  position: relative;
+  background: var(--color-dark-2);
+  border: 1px solid var(--color-border);
+  isolation: isolate;
+  overflow: hidden;
+}
+.collage-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-dust);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Brutalist 1px Section Dividers ── */
+.brutal-divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+  border: none;
+  margin: 0;
+}
+.brutal-divider-soft {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+  border: none;
+  margin: 0;
+}
+
+/* ── Industrial Cross Accent ── */
+.accent-cross {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  position: relative;
+}
+.accent-cross::before,
+.accent-cross::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+}
+.accent-cross::before { width: 1px;    height: 100%; }
+.accent-cross::after  { width: 100%;   height: 1px; }
+
+/* Heart-orb cross watermark (logo accent over product details) */
+.watermark-cross {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.03;
+  filter: grayscale(1) brightness(4);
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+/* ── Float-to-Focus Utility Card ── */
+.float-card {
+  transition:
+    transform   0.5s var(--transition-atm),
+    box-shadow  0.5s var(--transition-atm),
+    filter      0.5s var(--transition-atm),
+    border-color 0.35s ease;
+  will-change: transform, filter;
+}
+.float-card:hover {
+  transform: translateY(var(--float-lift, -6px));
+  box-shadow: 0 18px 50px rgba(0,0,0,0.78);
+}
+
+/* ── Featured Carousel: Atmospheric Stage ── */
+.featured-carousel-section {
+  background: radial-gradient(ellipse 90% 70% at 50% 60%, #161616 0%, #0D0D0D 100%);
+  overflow: visible;
+}
+.curve-carousel__fade {
+  background: linear-gradient(to top, var(--color-dark), rgba(13,13,13,0.75), transparent);
+}
+
+/* ── Hero: Layered Atmospheric Depth ── */
+.hero-fullbleed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 90% 35% at 50% 0%,   rgba(0,0,0,0.55) 0%, transparent 100%),
+    radial-gradient(ellipse 35% 100% at 0% 50%,   rgba(0,0,0,0.18) 0%, transparent 100%),
+    radial-gradient(ellipse 35% 100% at 100% 50%, rgba(0,0,0,0.18) 0%, transparent 100%);
+}
+
+/* ── Promo Poster Slide: Inset Haze ── */
+.promo-poster-slide {
+  position: relative;
+  overflow: hidden;
+}
+.promo-poster-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.45);
+}
+
+/* ── Header Nav Link — Underline Reveal ── */
+.header-nav-link {
+  position: relative;
+}
+.header-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: 0.5rem;
+  left: 0.5rem;
+  height: 1px;
+  background: rgba(255,255,255,0.5);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.35s var(--transition-atm);
+}
+.header-nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.header-nav-link.font-bold::after {
+  transform: scaleX(1);
+  background: rgba(255,255,255,0.8);
+}
+
+/* ── Curve Carousel Arrow Refinement ── */
+.curve-carousel__arrow:hover:not(:disabled) {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.5);
+}
+
+/* ── Swiper Nav — Atmospheric ── */
+.swiper-nav-btn:hover:not(:disabled) {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.45);
+}
+
+/* ── Product Gradient — Deeper Atmospheric ── */
+.product-card__gradient {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.96) 0%,
+    rgba(0, 0, 0, 0.78) 32%,
+    rgba(0, 0, 0, 0.30) 62%,
+    transparent 100%
+  );
+}
+
+/* ── Vintage Label Style ── */
+.vintage-label {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  opacity: 0.65;
+}
+
+/* ── Section Title — Brutalist Wide ── */
+.section-title-brutal {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: var(--color-body-text);
+}
+
+/* ── Page Entrance — Come Into Focus ── */
+@keyframes atm-focus-in {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0px);
+  }
+}
+
+div[data-page].active {
+  animation: atm-focus-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Scroll Focus-In Utility ── */
+.focus-in          { animation: atm-focus-in 0.65s var(--transition-atm) both; }
+.focus-in-delay-1  { animation-delay: 0.08s; }
+.focus-in-delay-2  { animation-delay: 0.16s; }
+.focus-in-delay-3  { animation-delay: 0.24s; }
+.focus-in-delay-4  { animation-delay: 0.32s; }
+.focus-in-delay-5  { animation-delay: 0.40s; }
+
+/* ── Mobile Bottom Nav — Atmospheric ── */
+.mobile-bottom-nav {
+  background: rgba(20, 20, 20, 0.9);
+  backdrop-filter: blur(16px) saturate(0.7);
+  -webkit-backdrop-filter: blur(16px) saturate(0.7);
+  border: 1px solid rgba(51, 51, 51, 0.75);
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.6);
+}
+
+/* ── Card Reveal — blurred siblings fade when one focused ── */
+.card-group:has(.iris-card:hover) .iris-card:not(:hover) {
+  filter: brightness(0.72) saturate(0.7);
+  transform: scale(0.99);
+}
+
+/* ── Pill Carousel Card: Atmospheric ── */
+.pill-carousel__card-frame {
+  transition: border-color 0.4s ease, filter 0.4s ease;
+}
+.pill-carousel__card:not(.is-center) .pill-carousel__card-frame {
+  filter: brightness(0.65) saturate(0.6);
+}
+.pill-carousel__card.is-center .pill-carousel__card-frame {
+  filter: brightness(1.0) saturate(1.0);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+}
+
+/* ── Footer — atmospheric border ── */
+#app-footer {
+  border-top: 1px solid var(--color-border);
+  position: relative;
+}
+#app-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+  pointer-events: none;
+}
+
+/* ── Atmospheric Badge ── */
+.badge {
+  background: var(--color-dark-2) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-muted) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.1em;
+}
+
+/* ── Cart Badge: Sharp accent ── */
+#cart-badge {
+  background: #FFFFFF;
+  color: #0D0D0D;
+  border: none !important;
+  border-radius: 0 !important;
+  font-weight: 700;
+}
+
+/* ── Product Variant Buttons — Atmospheric hover ── */
+.product-variant-btn:not(.rounded-full):hover:not(:disabled):not(.is-active) {
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.04);
+}
+
+/* ── Shop Hero / Page Headers — dust layer ── */
+.shop-hero-wrap,
+.page-header-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.shop-hero-wrap::after,
+.page-header-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(0,0,0,0.5) 0%, transparent 100%),
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(0,0,0,0.4) 0%, transparent 100%);
+}
+
+/* ── Admin: preserve light theme (dark classes should not pollute admin) ── */
+html.light body::before {
+  display: none;
 }
