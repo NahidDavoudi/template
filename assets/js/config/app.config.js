@@ -5,7 +5,7 @@ import demoData from './demo.data.js';
 
 export default {
   app: {
-    name: 'NadStore',
+    name: 'yoozstar یوز استار',
     locale: 'fa-IR',
   },
 

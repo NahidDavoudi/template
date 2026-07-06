@@ -30,8 +30,8 @@ function makeProduct({
     category_slug: categorySlug,
     main_image: img,
     images: [{ id: id * 10, url: img, image_url: img, is_main: true }],
-    short_description: `${name} — محصول نمایشی NadStore`,
-    description: `${name} یکی از محصولات نمایشی قالب NadStore است. این قالب برای نمایش ظاهر و تجربه کاربری فروشگاه آنلاین طراحی شده و بدون اتصال به سرور واقعی کار می‌کند.`,
+    short_description: `${name} — محصول yoozstar یوز استار`,
+    description: `${name} یکی از محصولات فروشگاه yoozstar یوز استار است.`,
     attributes: [
       { type_name: 'جنس', custom_value: 'پنبه مرغوب', value_value: 'پنبه مرغوب' },
       { type_name: 'رنگ', custom_value: 'مشکی', value_value: 'مشکی' },
