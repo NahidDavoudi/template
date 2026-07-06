@@ -45,6 +45,14 @@ export function pickProductImage(product, size = 'medium') {
   );
 }
 
+/** Secondary / lifestyle image for product-card hover swap */
+export function pickProductHoverImage(product, size = 'medium') {
+  if (!product?.images?.length || product.images.length < 2) return '';
+  const main = product.images.find((i) => i.is_main) || product.images[0];
+  const hover = product.images.find((i) => i !== main && pickImageUrl(i, size));
+  return hover ? pickImageUrl(hover, size) : '';
+}
+
 /**
  * @param {Object} banner
  * @param {'large'|'medium'|'thumb'} size

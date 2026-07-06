@@ -9,7 +9,7 @@ const CompleteStyleSection = {
     const cards = products.map((p) => RelatedProductCard.render(p)).join('');
 
     return `
-      <section class="border-t border-black/10 pt-12 md:pt-16 mt-12 md:mt-16">
+      <section class="border-t border-border pt-12 md:pt-16 mt-12 md:mt-16">
         <div class="flex items-center justify-between mb-8 md:mb-10">
           <a href="${viewAllHref}" data-link class="text-sm text-muted hover:text-body transition-colors flex items-center gap-1">
             <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>

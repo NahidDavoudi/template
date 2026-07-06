@@ -17,12 +17,12 @@ const HeroSection = {
         <div class="absolute bottom-8 md:bottom-12 left-0 right-0 z-10 px-4 md:px-6">
           <div class="max-w-[1280px] mx-auto flex flex-col md:flex-row items-stretch md:items-end justify-between gap-6">
             <div class="text-right min-w-0">
-              <h1 class="font-display text-3xl sm:text-4xl md:text-6xl text-white mb-2 leading-none drop-shadow-lg" dir="ltr">${hero.title}</h1>
-              ${hero.subtitle ? `<p class="text-white/75 text-sm md:text-base max-w-sm">${hero.subtitle}</p>` : ''}
+              <h1 class="font-display text-3xl sm:text-4xl md:text-6xl text-white mb-2 leading-none tracking-wider" dir="ltr">${hero.title}</h1>
+              ${hero.subtitle ? `<p class="text-white/75 text-sm md:text-base max-w-sm tracking-wide">${hero.subtitle}</p>` : ''}
             </div>
             <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               ${Button.render({ variant: 'aluminum', label: hero.ctaPrimary, href: '#/shop', size: 'lg', className: 'w-full sm:w-auto justify-center' })}
-              ${Button.render({ variant: 'glass', label: hero.ctaSecondary, href: '#/categories', size: 'lg', className: 'w-full sm:w-auto justify-center text-white !border-white/30' })}
+              ${Button.render({ variant: 'glass', label: hero.ctaSecondary, href: '#/categories', size: 'lg', className: 'w-full sm:w-auto justify-center' })}
             </div>
           </div>
         </div>

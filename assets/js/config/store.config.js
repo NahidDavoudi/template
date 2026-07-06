@@ -34,23 +34,23 @@ export default {
 
   theme: {
 
-    primary: '#6B0000',
+    primary: '#FFFFFF',
 
-    primaryHover: '#550000',
+    primaryHover: '#0D0D0D',
 
-    background: '#ffffff',
+    background: '#0D0D0D',
 
-    surface: '#F7F7F7',
+    surface: '#1A1A1A',
 
-    card: '#ffffff',
+    card: '#1A1A1A',
 
-    border: '#E5E5E5',
+    border: '#333333',
 
-    muted: '#737373',
+    muted: '#8B949E',
 
-    textDim: 'rgba(45, 45, 45, 0.5)',
+    textDim: 'rgba(224, 224, 224, 0.45)',
 
-    bodyText: '#2d2d2d',
+    bodyText: '#FFFFFF',
 
   },
 
@@ -60,7 +60,7 @@ export default {
 
     body: 'Vazirmatn',
 
-    display: 'Agbalumo',
+    display: 'Vazirmatn',
 
     felipa: 'Felipa',
 
@@ -108,9 +108,9 @@ export default {
 
   ui: {
 
-    cardRadius: 'rounded-2xl',
+    cardRadius: 'rounded-none',
 
-    btnRadius: 'rounded-full',
+    btnRadius: 'rounded-none',
 
     btnAluminum: 'btn-accent',
 
@@ -120,33 +120,33 @@ export default {
 
     cardBase: 'bg-card border border-border',
 
-    cardHover: 'hover:shadow-[0_12px_40px_rgba(107,0,0,0.12)] hover:border-accent/30 transition-all duration-500',
+    cardHover: 'hover:border-white transition-colors duration-300',
 
     productCardAspect: 'aspect-[4/5]',
 
     toast: {
 
-      success: { bg: '#16a34a', text: '#ffffff', border: '#15803d' },
+      success: { bg: '#1A1A1A', text: '#FFFFFF', border: '#333333' },
 
-      error: { bg: '#6B0000', text: '#ffffff', border: '#550000' },
+      error: { bg: '#1A1A1A', text: '#FFFFFF', border: '#FFFFFF' },
 
-      warning: { bg: '#eab308', text: '#422006', border: '#ca8a04' },
+      warning: { bg: '#1A1A1A', text: '#E0E0E0', border: '#8B949E' },
 
-      info: { bg: '#2563eb', text: '#ffffff', border: '#1d4ed8' },
+      info: { bg: '#1A1A1A', text: '#FFFFFF', border: '#333333' },
 
     },
 
     variant: {
 
-      swatchActive: 'is-active border-accent ring-2 ring-accent/30',
+      swatchActive: 'is-active border-white ring-1 ring-white',
 
       swatchInactive: 'border-border',
 
       swatchDisabled: 'opacity-30 cursor-not-allowed',
 
-      textActive: 'is-active bg-accent text-white border-accent',
+      textActive: 'is-active bg-white text-black border-white',
 
-      textInactive: 'bg-card text-body border-border hover:border-accent/40',
+      textInactive: 'bg-card text-body border-border hover:border-muted transition-colors duration-300',
 
       textDisabled: 'bg-card border-border text-muted/50 cursor-not-allowed opacity-50',
 
@@ -195,7 +195,7 @@ export default {
 
       viewAllHref: '#/shop?featured=1',
 
-      backgroundColor: '#ffffff',
+      backgroundColor: '#0D0D0D',
 
       curve: {
 
@@ -203,7 +203,7 @@ export default {
 
         cardHeight: 440,
 
-        cardRadius: 16,
+        cardRadius: 0,
 
         mobileCardWidth: 240,
 
@@ -247,7 +247,7 @@ export default {
 
         mobileContainerHeight: 380,
 
-        cardBorderRadius: 200,
+        cardBorderRadius: 0,
 
         autoplay: true,
 
@@ -255,27 +255,27 @@ export default {
 
         transitionMs: 600,
 
-        hoverScale: 1.05,
+        hoverScale: 1.02,
 
-        hoverBrightness: 1.15,
+        hoverBrightness: 1.05,
 
-        cardShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+        cardShadow: 'none',
 
-        activeBorderWidth: 6,
+        activeBorderWidth: 1,
 
         activeBorderColor: '#FFFFFF',
 
         tooltipBackgroundColor: '#FFFFFF',
 
-        tooltipTextColor: '#000000',
+        tooltipTextColor: '#0D0D0D',
 
         tooltipPadding: '12px 24px',
 
         tooltipFontSize: 14,
 
-        tooltipBorderRadius: 50,
+        tooltipBorderRadius: 0,
 
-        tooltipShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        tooltipShadow: 'none',
 
         tooltipText: 'مشاهده جزئیات',
 

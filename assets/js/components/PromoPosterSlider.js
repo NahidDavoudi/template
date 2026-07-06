@@ -10,7 +10,7 @@ const PromoPosterSlider = {
     const aspect = cfg.aspect || 'aspect-[21/9]';
     const slides = banners.map((b) => `
       <div class="swiper-slide">
-        <div class="promo-poster-slide ${aspect} overflow-hidden rounded-2xl bg-surface border border-border">
+        <div class="promo-poster-slide ${aspect} overflow-hidden ${storeConfig.ui.cardRadius} bg-surface border border-border">
           <img src="${pickBannerImage(b, 'medium')}" alt="${b.title || 'پوستر تبلیغاتی'}"
                class="w-full h-full object-cover" loading="lazy">
         </div>

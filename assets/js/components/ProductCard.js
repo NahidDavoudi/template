@@ -1,7 +1,7 @@
 import { storeConfig } from '../config/bootstrap.js';
 import { formatPrice } from '../utils/priceFormatter.js';
 import { renderImageWithFallback } from '../utils/imagePlaceholder.js';
-import { pickProductImage } from '../utils/imageUrl.js';
+import { pickProductImage, pickProductHoverImage } from '../utils/imageUrl.js';
 import { renderProductCardOverlay } from '../utils/productCardOverlay.js';
 import DOM from '../utils/dom.js';
 import Button from './Button.js';
@@ -14,7 +14,7 @@ const ProductCard = {
     const href = DOM.hashHref('product', { id: p.id });
 
     const lowStock = p.stock <= 2 && p.stock > 0
-      ? `<span class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-full z-10">آخرین موجودی</span>`
+      ? `<span class="absolute top-3 left-3 bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-none border border-border z-10 tracking-wider uppercase">آخرین موجودی</span>`
       : '';
     const outOfStock = p.stock === 0
       ? `<div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center z-10"><span class="text-sm text-white/80 font-medium">ناموجود</span></div>`
@@ -29,6 +29,8 @@ const ProductCard = {
       disabled: p.stock === 0,
     });
 
+    const hoverImg = pickProductHoverImage(p, 'medium');
+
     return `
       <a href="${href}" data-link
          class="group block iris-card ${ui.cardBase} ${ui.cardRadius} ${ui.cardHover}">
@@ -36,8 +38,9 @@ const ProductCard = {
           ${lowStock}${outOfStock}
           ${renderImageWithFallback({
             src: img,
+            hoverSrc: hoverImg,
             alt: p.name,
-            imgClass: 'w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out',
+            imgClass: 'w-full h-full object-cover transition-transform duration-300',
           })}
           ${renderProductCardOverlay({
             name: p.name,

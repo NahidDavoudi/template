@@ -1,7 +1,8 @@
 import { storeConfig } from '../config/bootstrap.js';
 import { formatPrice } from '../utils/priceFormatter.js';
 import { renderImageWithFallback } from '../utils/imagePlaceholder.js';
-import { pickProductImage } from '../utils/imageUrl.js';
+import { pickProductImage, pickProductHoverImage } from '../utils/imageUrl.js';
+import { renderProductCardOverlay } from '../utils/productCardOverlay.js';
 import DOM from '../utils/dom.js';
 import Button from './Button.js';
 
@@ -21,13 +22,16 @@ const RelatedProductCard = {
       disabled: p.stock === 0,
     });
 
+    const hoverImg = pickProductHoverImage(p, 'thumb');
+
     return `
       <a href="${href}" data-link class="group block iris-card ${ui.cardBase} ${ui.cardRadius} ${ui.cardHover}">
         <div class="relative aspect-square overflow-hidden bg-surface">
           ${renderImageWithFallback({
             src: img,
+            hoverSrc: hoverImg,
             alt: p.name,
-            imgClass: 'w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500',
+            imgClass: 'w-full h-full object-cover transition-transform duration-300',
             iconSize: 'w-8 h-8',
           })}
           ${renderProductCardOverlay({

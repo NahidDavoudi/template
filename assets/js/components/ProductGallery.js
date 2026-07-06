@@ -11,7 +11,7 @@ const ProductGallery = {
       ? validImages.map((img, i) => `
           <button type="button" data-thumb-index="${i}"
                   class="product-thumb relative w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-colors bg-surface
-                         ${i === 0 ? 'border-body' : 'border-transparent hover:border-black/20'}">
+                         ${i === 0 ? 'border-white' : 'border-transparent hover:border-muted'}">
             ${renderImageWithFallback({
               src: pickImageUrl(img, 'thumb'),
               alt: '',
@@ -29,7 +29,7 @@ const ProductGallery = {
         <div class="flex gap-3 md:gap-4 items-start">
           <div class="flex flex-col gap-2 shrink-0">${thumbs}</div>
           <div class="flex-1 min-w-0">
-            <div id="product-main-image-wrap" class="relative aspect-square bg-surface rounded-2xl overflow-hidden">
+            <div id="product-main-image-wrap" class="relative aspect-square bg-surface rounded-none border border-border overflow-hidden">
               ${validImages.length
                 ? renderImageWithFallback({
                     src: pickImageUrl(validImages[0], 'large'),

@@ -141,7 +141,7 @@ const ProductInfo = {
         <div id="product-variant-selectors">${axesHtml}</div>
 
         <div class="flex items-center gap-3 mb-4">
-          <div class="flex items-center border border-black/10 rounded-full overflow-hidden shrink-0" dir="ltr">
+          <div class="flex items-center border border-border overflow-hidden shrink-0" dir="ltr">
             <button type="button" id="qty-minus" class="w-10 h-10 flex items-center justify-center text-body hover:bg-black/5 transition-colors">−</button>
             <span id="qty-value" class="w-10 text-center text-sm font-medium text-body">1</span>
             <button type="button" id="qty-plus" class="w-10 h-10 flex items-center justify-center text-body hover:bg-black/5 transition-colors">+</button>
@@ -165,7 +165,7 @@ const ProductInfo = {
                 class="w-full text-center text-sm text-muted hover:text-body transition-colors mb-8 ${outOfStock ? 'opacity-40 pointer-events-none' : ''}"
                 ${outOfStock ? 'disabled' : ''}>${t.quickBuy}</button>
 
-        <div class="border-t border-black/10">
+        <div class="border-t border-border">
           <button type="button" data-accordion="details" aria-expanded="true"
                   class="product-acc-btn w-full flex items-center justify-between py-4 text-body">
             <i data-lucide="chevron-down" class="product-acc-icon w-4 h-4 transition-transform rotate-180"></i>
@@ -176,7 +176,7 @@ const ProductInfo = {
           </div>
         </div>
 
-        <div class="border-t border-black/10">
+        <div class="border-t border-border">
           <button type="button" data-accordion="shipping" aria-expanded="false"
                   class="product-acc-btn w-full flex items-center justify-between py-4 text-body">
             <i data-lucide="chevron-down" class="product-acc-icon w-4 h-4 transition-transform"></i>

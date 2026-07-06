@@ -11,7 +11,7 @@ const Header = {
 
     const navItems = navLinks.map((l) => `
       <a href="${l.href}" data-link
-         class="text-sm text-dim hover:text-body transition-colors px-2 py-1 rounded-full hover:bg-accent/10 header-nav-link">
+         class="text-sm text-dim hover:text-body transition-colors px-2 py-1 rounded-none border border-transparent hover:border-border header-nav-link">
         ${l.label}
       </a>`).join('');
 
@@ -20,7 +20,7 @@ const Header = {
            <span class="text-xs text-muted hidden sm:inline">${user?.name || user?.phone || ''}</span>
            <button id="header-logout-btn" class="text-xs text-muted hover:text-body transition-colors">خروج</button>
          </div>`
-      : `<a href="login.html" class="hidden md:flex w-9 h-9 items-center justify-center rounded-full hover:bg-accent/10 transition-colors" title="ورود">
+      : `<a href="login.html" class="hidden md:flex w-9 h-9 items-center justify-center rounded-none border border-transparent hover:border-border transition-colors" title="ورود">
            <i data-lucide="user" class="w-[18px] h-[18px] text-muted"></i>
          </a>`;
 
@@ -33,12 +33,12 @@ const Header = {
           </a>
           <nav class="hidden md:flex items-center gap-1">${navItems}</nav>
           <div class="flex items-center gap-2">
-            <button class="hidden md:flex w-9 h-9 items-center justify-center rounded-full hover:bg-accent/10 transition-colors" title="جستجو">
+            <button class="hidden md:flex w-9 h-9 items-center justify-center rounded-none border border-transparent hover:border-border transition-colors" title="جستجو">
               <i data-lucide="search" class="w-[18px] h-[18px] text-muted"></i>
             </button>
-            <a href="#/cart" data-link class="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-accent/10 transition-colors group">
+            <a href="#/cart" data-link class="relative w-9 h-9 flex items-center justify-center rounded-none border border-transparent hover:border-border transition-colors group">
               <i data-lucide="shopping-bag" class="w-[18px] h-[18px] text-muted group-hover:text-body transition-colors"></i>
-              <span id="cart-badge" class="hidden absolute -top-0.5 -right-0.5 w-4 h-4 bg-accent text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
+              <span id="cart-badge" class="hidden absolute -top-0.5 -right-0.5 w-4 h-4 bg-accent text-[9px] font-bold rounded-none flex items-center justify-center">0</span>
             </a>
             ${userArea}
           </div>

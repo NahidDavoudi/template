@@ -13,7 +13,7 @@ const CategoryCard = {
 
     return `
       <a href="${DOM.hashHref('shop', { category: slug })}" data-link
-         class="relative ${ui.cardRadius} overflow-hidden group block" style="height:180px">
+         class="relative ${ui.cardRadius} overflow-hidden group block border border-border hover:border-white transition-colors duration-300" style="height:180px">
         <div class="absolute inset-0 bg-surface relative overflow-hidden">
           ${renderImageWithFallback({
             src: img,
@@ -25,7 +25,7 @@ const CategoryCard = {
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
         <div class="absolute bottom-0 left-0 right-0 p-4">
           <h3 class="text-base font-bold text-right text-white">${name}</h3>
-          ${c.product_count ? `<p class="text-accent/80 text-xs text-right mt-0.5">${c.product_count} محصول</p>` : ''}
+          ${c.product_count ? `<p class="text-white/70 text-xs text-right mt-0.5 tracking-wide">${c.product_count} محصول</p>` : ''}
         </div>
       </a>`;
   },
