@@ -6,6 +6,7 @@ import Router from '../core/router.js';
 import ProductCard from '../components/ProductCard.js';
 import CategoryCircles from '../components/CategoryCircles.js';
 import FeaturedCarousel from '../components/FeaturedCarousel.js';
+import HeroSection from '../components/HeroSection.js';
 import { storeConfig } from '../config/bootstrap.js';
 
 const SWIPER_DEFAULTS = {
@@ -63,6 +64,13 @@ async function loadHomeCategories() {
 
 Router.onEnter('home', async function () {
   setHomeTexts();
+
+  const heroEl = document.getElementById('hero-section');
+  if (heroEl) {
+    heroEl.innerHTML = HeroSection.render();
+    HeroSection.bind(heroEl);
+    if (window.lucide) lucide.createIcons({ nodes: [heroEl] });
+  }
 
   const featuredEl = document.getElementById('featured-section');
   if (featuredEl) {

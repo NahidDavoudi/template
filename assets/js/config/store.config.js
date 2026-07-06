@@ -20,13 +20,13 @@ export default {
 
     image: 'assets/images/hero.png',
 
-    title: 'yoozstar یوز استار',
+    title: 'DARK VAULT',
 
-    subtitle: 'فروشگاه آنلاین یوز استار',
+    subtitle: 'اکسسوری‌های تاریک — برای روح‌های متفاوت',
 
-    ctaPrimary: 'مشاهده محصولات',
+    ctaPrimary: 'کشف کالکشن',
 
-    ctaSecondary: 'دسته‌بندی‌ها',
+    ctaSecondary: 'همه محصولات',
 
   },
 
