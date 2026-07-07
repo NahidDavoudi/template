@@ -17,10 +17,10 @@
 cd api
 composer install --no-dev --optimize-autoloader
 
-# 2. CSS
+# 2. Frontend (Vite build → dist/)
 cd ..
 npm install
-npm run build:css
+npm run build
 
 # 3. دیتابیس (در MySQL)
 # api/database/login_attempts.sql
@@ -28,6 +28,8 @@ npm run build:css
 # api/database/product_catalog_migration.sql
 # api/database/shop_settings_migration.sql
 ```
+
+خروجی فرانت‌اند در پوشه `dist/` قرار می‌گیرد؛ این پوشه را به‌عنوان document root فرانت‌اند استفاده کنید.
 
 ## پرمیشن‌ها
 
@@ -37,9 +39,31 @@ npm run build:css
 
 ## Apache / Nginx
 
-- [ ] Document root به ریشه پروژه (`index.html`, `admin.html`, `api/`)
+- [ ] Document root به خروجی `dist/` (یا ریشه پروژه برای حالت توسعه) اشاره کند
+- [ ] **SPA fallback:** چون از مسیریابی مرورگری استفاده می‌شود، تمام مسیرهای ناشناخته (به‌جز فایل‌های استاتیک و `/api`) باید به `index.html` برگردانده شوند
 - [ ] rewrite برای API به `api/index.php`
 - [ ] `.htaccess` دامنه production بررسی شده
+
+### نمونه Apache (SPA fallback)
+
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+
+### نمونه Nginx (SPA fallback)
+
+```nginx
+location / {
+  try_files $uri $uri/ /index.html;
+}
+```
 
 ## بعد از deploy
 

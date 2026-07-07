@@ -1,9 +1,14 @@
+# NadStore — Apache config (React SPA, browser-style routes)
 
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^ghulbazar\.ir$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.ghulbazar\.ir$
-RewriteRule ^index\.html\/?(.*)$ "http\:\/\/ghulbazar\.ir\/index\.html$1" [R=301,L]
-RewriteCond %{HTTP_HOST} ^ghulbazar\.ir$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.ghulbazar\.ir$
-RewriteRule ^admin$ "http\:\/\/ghulbazar\.ir\/admin\.html" [R=301,L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
 
+  # Don't rewrite real files/directories (assets, uploads, api)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # SPA fallback: everything else → index.html
+  RewriteRule . /index.html [L]
+</IfModule>
